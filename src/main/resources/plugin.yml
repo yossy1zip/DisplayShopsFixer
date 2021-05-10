@@ -1,0 +1,6 @@
+name: DisplayShopsFixer
+version: ${project.version}
+main: com.yiorno.displayshopsfixer.DisplayShopsFixer
+api-version: 1.16
+depend: [ DisplayShops ]
+authors: [ yossy_zip ]
