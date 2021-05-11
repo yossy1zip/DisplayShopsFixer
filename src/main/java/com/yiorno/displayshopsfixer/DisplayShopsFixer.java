@@ -8,8 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import xzot1k.plugins.ds.api.events.ShopCreationEvent;
-import xzot1k.plugins.ds.api.objects.MarketRegion;
-import xzot1k.plugins.ds.api.objects.Shop;
 
 public final class DisplayShopsFixer extends JavaPlugin implements Listener {
 
