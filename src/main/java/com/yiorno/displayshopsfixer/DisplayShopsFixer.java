@@ -5,7 +5,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import xzot1k.plugins.ds.api.events.ShopCreationEvent;
 
@@ -22,7 +24,7 @@ public final class DisplayShopsFixer extends JavaPlugin implements Listener {
         // Plugin shutdown logic
     }
 
-    @EventHandler
+    @EventHandler(priority= EventPriority.LOWEST)
     public void onCreateShop(ShopCreationEvent e){
         Location loc = e.getLocation();
         Location newLoc = new Location(e.getLocation().getWorld(),e.getLocation().getX(),e.getLocation().getY()-1, e.getLocation().getZ());
@@ -33,5 +35,28 @@ public final class DisplayShopsFixer extends JavaPlugin implements Listener {
             e.setCancelBlockPlaceEvent(true);
         }
 
+    }
+
+    @EventHandler(priority= EventPriority.LOWEST)
+    public void onPlaceShop(BlockPlaceEvent e){
+        Material mat = e.getBlockPlaced().getType();
+        Location loc = e.getBlockPlaced().getLocation();
+        String itemName = e.getItemInHand().getItemMeta().getDisplayName();
+
+        if(mat==Material.CHEST) {
+
+            if(itemName.contains("ショップ")) {
+
+                for (int y = 1; y <= 2; y++) {
+                    if (loc.getBlock().getRelative(0, y, 0).getType()!=Material.AIR) {
+                        e.getPlayer().sendMessage(ChatColor.RED + "上方に十分な空きスペースがありません！");
+                        e.setCancelled(true);
+                        break;
+                    }
+                }
+
+            }
+
+        }
     }
 }
